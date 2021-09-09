@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
-
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
 const firebaseConfig = {
     apiKey: "AIzaSyCkrs6N8Q3JKL59Zkn-qp9zm8Z7LniZ5Rs",
     authDomain: "chat-web-app-2bdc3.firebaseapp.com",
@@ -12,4 +14,8 @@ const firebaseConfig = {
 
 
 const app = firebase.initializeApp(firebaseConfig);
-  
+export const auth = app.auth();
+export const db = app.database();
+export const storage = app.storage();
+
+
