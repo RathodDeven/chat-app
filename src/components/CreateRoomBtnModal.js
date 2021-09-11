@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import { Alert, Button, ControlLabel, Form, FormControl, FormGroup, Icon, Modal, Schema } from 'rsuite'
 import { useModalState } from '../misc/custom-hooks'
 import firebase from 'firebase/app'
-import { db } from '../misc/firebase';
+import { auth, db } from '../misc/firebase';
 
 
 const {StringType} = Schema.Types;
@@ -35,7 +35,10 @@ const CreateRoomBtnModal = () => {
         setIsLoading(true);
         const newRoomData = {
             ...formValue,
-            createdAt: firebase.database.ServerValue.TIMESTAMP
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            admins: {
+                [auth.currentUser.uid]: true,
+            }
         }
         try{
             await db.ref('rooms').push(newRoomData);
